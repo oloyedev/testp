@@ -117,6 +117,7 @@ export class AppController {
         <p>Discover a cozy landing page built with NestJS. Perfect for coffee shops, cafes, and anyone who wants a warm, inviting online presence.</p>
         <div class="button-group">
           <button class="btn btn-primary" onclick="window.location='/explore'">Explore Menu</button>
+          <button class="btn btn-secondary" onclick="window.location='/chef'">Our Chefs</button>
         </div>
       </div>
     </section>
@@ -277,7 +278,143 @@ export class AppController {
       name: 'Coffee Land',
       version: '1.0.0',
       description: 'A cozy coffee landing page powered by NestJS',
-      endpoints: ['GET /', 'GET /health', 'GET /explore', 'GET /api/info'],
+      endpoints: ['GET /', 'GET /health', 'GET /explore', 'GET /chef', 'GET /light', 'GET /api/info'],
     };
   }
-}
+
+  @Get('chef')
+  @Header('Content-Type', 'text/html')
+  getChef(): string {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Chefs | Coffee Land</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --surface: rgba(255,255,255,0.04);
+      --accent: #d6a35f;
+      --text: #f5f1eb;
+      --muted: #a7a29b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, rgba(214,163,95,0.12), transparent 35%),
+        linear-gradient(180deg, #0f0f0f 0%, #161616 100%);
+      color: var(--text);
+    }
+    .page {
+      padding: 3rem 1.5rem 4rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .hero {
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .chefs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .chef-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+    .chef-card h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      color: #fff;
+    }
+    .chef-title {
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .chef-bio {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.95rem;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.9rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214,163,95,0.3);
+      background: rgba(214,163,95,0.08);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p style="letter-spacing:0.35em; text-transform:uppercase; color:var(--accent); font-weight:700;">Coffee Land</p>
+      <h1>Meet Our Chefs</h1>
+      <p>Talented culinary artists dedicated to crafting unforgettable coffee experiences and delicious pastries.</p>
+    </section>
+    <section class="chefs">
+      <article class="chef-card">
+        <h2>Marco Rossi</h2>
+        <p class="chef-title">Head Chef & Pastry Specialist</p>
+        <p class="chef-bio">With 15 years of experience in Italian cuisine, Marco brings artistry to every pastry and espresso pull.</p>
+      </article>
+      <article class="chef-card">
+        <h2>Sofia Chen</h2>
+        <p class="chef-title">Barista Master</p>
+        <p class="chef-bio">Certified latte art champion. Sofia crafts perfectly balanced espresso drinks with precision and passion.</p>
+      </article>
+      <article class="chef-card">
+        <h2>James Mitchell</h2>
+        <p class="chef-title">Pastry Chef</p>
+        <p class="chef-bio">Award-winning pastry chef specializing in French techniques and artisanal bread baking.</p>
+      </article>
+      <article class="chef-card">
+        <h2>Lucia Santos</h2>
+        <p class="chef-title">Beverage Director</p>
+        <p class="chef-bio">Expert in sourcing premium coffee beans from sustainable farms across the globe.</p>
+      </article>
+      <article class="chef-card">
+        <h2>David Kumar</h2>
+        <p class="chef-title">Seasonal Menu Creator</p>
+        <p class="chef-bio">Innovates signature drinks and food pairings that celebrate seasonal flavors and local ingredients.</p>
+      </article>
+      <article class="chef-card">
+        <h2>Emma Thompson</h2>
+        <p class="chef-title">Dessert & Cake Designer</p>
+        <p class="chef-bio">Creates stunning custom cakes and desserts that taste as amazing as they look.</p>
+      </article>
+    </section>
+    <a class="back" href="/">← Back to Home</a>
+  </main>
+</body>
+</html>`;
+  }
