@@ -116,8 +116,7 @@ export class AppController {
         <h1>Your daily brew, crafted with warmth.</h1>
         <p>Discover a cozy landing page built with NestJS. Perfect for coffee shops, cafes, and anyone who wants a warm, inviting online presence.</p>
         <div class="button-group">
-          <button class="btn btn-primary" onclick="window.location='/api/info'">Explore Menu</button>
-          <button class="btn btn-secondary" onclick="window.location='/health'">Check Status</button>
+          <button class="btn btn-primary" onclick="window.location='/explore'">Explore Menu</button>
         </div>
       </div>
     </section>
@@ -154,13 +153,131 @@ export class AppController {
     };
   }
 
+  @Get('explore')
+  @Header('Content-Type', 'text/html')
+  getExplore(): string {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Menu | Coffee Land</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --surface: rgba(255,255,255,0.04);
+      --accent: #d6a35f;
+      --text: #f5f1eb;
+      --muted: #a7a29b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, rgba(214,163,95,0.12), transparent 35%),
+        linear-gradient(180deg, #0f0f0f 0%, #161616 100%);
+      color: var(--text);
+    }
+    .page {
+      padding: 3rem 1.5rem 4rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .hero {
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .menu {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+    }
+    .item h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      color: #fff;
+    }
+    .item p {
+      margin: 0.75rem 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.9rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214,163,95,0.3);
+      background: rgba(214,163,95,0.08);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p style="letter-spacing:0.35em; text-transform:uppercase; color:var(--accent); font-weight:700;">Coffee Land</p>
+      <h1>Explore our coffee menu</h1>
+      <p>Browse signature drinks, cozy favorites, and snack pairings designed to brighten your day and satisfy every craving.</p>
+    </section>
+    <section class="menu">
+      <article class="item">
+        <h2>Signature Espresso</h2>
+        <p>Pure intensity with velvety crema. Choose from single shot, doppio, or Americano.</p>
+      </article>
+      <article class="item">
+        <h2>Velvet Latte</h2>
+        <p>Steamed milk, smooth espresso, and a creamy finish for a warm, comforting sip.</p>
+      </article>
+      <article class="item">
+        <h2>Caramel Cloud</h2>
+        <p>A sweet, buttered caramel latte topped with light foam and a sprinkle of sea salt.</p>
+      </article>
+      <article class="item">
+        <h2>Cold Brew Bliss</h2>
+        <p>Slow-steeped dark roast served chilled, with bright citrus notes and mellow sweetness.</p>
+      </article>
+      <article class="item">
+        <h2>Pastry Pairings</h2>
+        <p>Fresh croissants, cinnamon rolls, and house-made muffins crafted to pair perfectly with your drink.</p>
+      </article>
+    </section>
+    <a class="back" href="/">← Back to Home</a>
+  </main>
+</body>
+</html>`;
+  }
+
   @Get('api/info')
   getInfo(): object {
     return {
       name: 'Coffee Land',
       version: '1.0.0',
       description: 'A cozy coffee landing page powered by NestJS',
-      endpoints: ['GET /', 'GET /health', 'GET /api/info'],
+      endpoints: ['GET /', 'GET /health', 'GET /explore', 'GET /api/info'],
     };
   }
 }
