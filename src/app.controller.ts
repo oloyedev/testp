@@ -117,6 +117,7 @@ export class AppController {
         <p>Discover a cozy landing page built with NestJS. Perfect for coffee shops, cafes, and anyone who wants a warm, inviting online presence.</p>
         <div class="button-group">
           <button class="btn btn-primary" onclick="window.location='/explore'">Explore Menu</button>
+          <button class="btn btn-secondary" onclick="window.location='/recipes'">Our Recipes</button>
           <button class="btn btn-secondary" onclick="window.location='/chef'">Our Chefs</button>
         </div>
       </div>
@@ -278,8 +279,122 @@ export class AppController {
       name: 'Coffee Land',
       version: '1.0.0',
       description: 'A cozy coffee landing page powered by NestJS',
-      endpoints: ['GET /', 'GET /health', 'GET /explore', 'GET /chef', 'GET /light', 'GET /api/info'],
+      endpoints: ['GET /', 'GET /health', 'GET /explore', 'GET /recipes', 'GET /chef', 'GET /light', 'GET /api/info'],
     };
+  }
+
+  @Get('recipes')
+  @Header('Content-Type', 'text/html')
+  getRecipes(): string {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Recipes | Coffee Land</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --surface: rgba(255,255,255,0.04);
+      --accent: #d6a35f;
+      --text: #f5f1eb;
+      --muted: #a7a29b;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, rgba(214,163,95,0.12), transparent 35%),
+        linear-gradient(180deg, #0f0f0f 0%, #161616 100%);
+      color: var(--text);
+    }
+    .page {
+      padding: 3rem 1.5rem 4rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .hero {
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .recipes {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .recipe-item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+    }
+    .recipe-item h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      color: #fff;
+    }
+    .recipe-item p {
+      margin: 0.75rem 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.9rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214,163,95,0.3);
+      background: rgba(214,163,95,0.08);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p style="letter-spacing:0.35em; text-transform:uppercase; color:var(--accent); font-weight:700;">Coffee Land</p>
+      <h1>Our Favorite Recipes</h1>
+      <p>Explore curated drink and snack recipes crafted for comfort, flavor, and easy enjoyment at home.</p>
+    </section>
+    <section class="recipes">
+      <article class="recipe-item">
+        <h2>Vanilla Cinnamon Latte</h2>
+        <p>Steep a cinnamon stick in steamed milk, add vanilla syrup, and pull a double espresso for a warm, aromatic treat.</p>
+      </article>
+      <article class="recipe-item">
+        <h2>Honey Cardamom Cold Brew</h2>
+        <p>Blend cold brew with honey, a pinch of cardamom, and sparkling water for a refreshing, lightly spiced drink.</p>
+      </article>
+      <article class="recipe-item">
+        <h2>Mocha Almond Shake</h2>
+        <p>Mix espresso, milk, cocoa, and almond butter with ice for a creamy, indulgent chocolate coffee shake.</p>
+      </article>
+      <article class="recipe-item">
+        <h2>Maple Pecan Espresso Toast</h2>
+        <p>Spread maple butter over toasted sourdough and sprinkle chopped pecans for a sweet coffee-side snack.</p>
+      </article>
+    </section>
+    <a class="back" href="/">← Back to Home</a>
+  </main>
+</body>
+</html>`;
   }
 
   @Get('chef')
